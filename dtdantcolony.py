@@ -32,18 +32,21 @@ class Colony(object):
         return alltimepathshort[1]
 
     def pheromon(self, pathsall, best, pathshort):
+    #Функция оставления феромона
         sortedpaths = sorted(pathsall, key=lambda x: x[1])
         for path, dist in sortedpaths[:best]:
             for move in path:
                 self.pheromone[move] += 1.0 / self.dist[move]
 
     def pathgendst(self, path):
+    #Функция расчёта растояния пути
         totaldst = 0
         for el in path:
             totaldst += self.dist[el]
         return totaldst
 
     def genallpaths(self):
+    #Функция создания путей для каждого муровья
         pathsall = []
         for i in range(self.ants):
             path = self.pathgen(0)
@@ -51,6 +54,7 @@ class Colony(object):
         return pathsall
 
     def pathgen(self, start):
+    #Функция (расчёта) создания пути 
         path = []
         visited = set()
         visited.add(start)
@@ -64,6 +68,7 @@ class Colony(object):
         return path
 
     def pick(self, pheromone, dist, visited):
+    #Функция выбора города
         pheromone = np.copy(pheromone)
         pheromone[list(visited)] = 0
         row = pheromone ** self.a * (( 1.0 / dist) ** self.b)
