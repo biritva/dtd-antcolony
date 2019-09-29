@@ -75,14 +75,15 @@ class Colony(object):
         norm_row = row / row.sum()
         move = np.random.choice(self.allind, 1, p=norm_row)[0]
         return move
-
+#Ввод матрицы растояний
 ds = list(map(np.float64, input().split()))   
 dst = np.zeros((len(ds), len(ds)))
 dst[0] += ds
 for i in range(1, len(ds)):
     ds = list(map(np.float64, input().split()))
     dst[i] += ds
-
+#Создание экземпляра класса и запуск расчёта
 ac = Colony(dst, 10, 5, 1000, 0.45, a=0.7, b=1.5)
 weight = ac.start()
+#Вывод результатов
 print (str(int(weight)))
