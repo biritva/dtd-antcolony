@@ -2,15 +2,15 @@ import sys
 import numpy as np
 
 class Colony(object):
-'''Класс отвечающий за решение '''
+#Класс отвечающий за решение
 
     def __init__(self, dist, ants, best, iterations, decay, a=1, b=1): 
-    ''' Конструктор класса, ввод основных параметров'''
+    #Конструктор класса, ввод основных параметров
         self.dist  = dist.astype(np.float64) #матрица растояний
         self.dist[self.dist==0] = np.inf
         self.pheromone = np.ones(self.dist.shape) / len(dist) #инициализация матрицы отложений феромона
         self.allind = range(len(dist))
-        self.iterations = iterations
+        self.iterations = iterations #Число итераций
         self.decay = decay #коэффициент распада феромона
         self.ants = ants #число муравьев
         self.best = best #число улучшенных муравьев
@@ -18,7 +18,7 @@ class Colony(object):
         self.b = b #коэффициент растояния      
 
     def start(self):
-    ''' Функция запуска основного цикла расчёта колонии'''
+    #Функция запуска основного цикла расчёта колонии
         pathshort = None
         alltimepathshort = ("", np.inf)
         while(self.iterations):            
