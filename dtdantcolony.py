@@ -2,22 +2,23 @@ import sys
 import numpy as np
 
 class Colony(object):
+'''Класс отвечающий за решение '''
 
-    def __init__(self, dist, ants, best, iterations, decay, a=1, b=1):
-        self.dist  = dist.astype(np.float64)
+    def __init__(self, dist, ants, best, iterations, decay, a=1, b=1): 
+    ''' Конструктор класса, ввод основных параметров'''
+        self.dist  = dist.astype(np.float64) #матрица растояний
         self.dist[self.dist==0] = np.inf
-        self.pheromone = np.ones(self.dist.shape) / len(dist)
+        self.pheromone = np.ones(self.dist.shape) / len(dist) #инициализация матрицы отложений феромона
         self.allind = range(len(dist))
         self.iterations = iterations
-        self.decay = decay
-        self.ants = ants
-        self.best = best
-        self.a = a
-        self.b = b
-        self.r = 0
-        self.bc = True
+        self.decay = decay #коэффициент распада феромона
+        self.ants = ants #число муравьев
+        self.best = best #число улучшенных муравьев
+        self.a = a #коэффициент феромона
+        self.b = b #коэффициент растояния      
 
     def start(self):
+    ''' Функция запуска основного цикла расчёта колонии'''
         pathshort = None
         alltimepathshort = ("", np.inf)
         while(self.iterations):            
@@ -70,7 +71,7 @@ class Colony(object):
         move = np.random.choice(self.allind, 1, p=norm_row)[0]
         return move
 
-ds = list(map(np.float64, input().split()))
+ds = list(map(np.float64, input().split()))   
 dst = np.zeros((len(ds), len(ds)))
 dst[0] += ds
 for i in range(1, len(ds)):
